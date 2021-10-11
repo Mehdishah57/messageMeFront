@@ -1,0 +1,149 @@
+.profile-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 720px;
+  width: 100vw;
+  overflow-y: auto;
+}
+
+form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 60%;
+}
+
+.image-wrapper {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 300px;
+  height: 300px;
+  background-color: transparent;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.actual-img {
+  display: flex;
+  height: 300px;
+  width: 300px;
+}
+
+.profile-image-input:focus {
+  outline: none;
+}
+
+.camera-icon {
+  position: absolute;
+  bottom: 0px;
+  background-color: rgba(0, 0, 0, 0.233);
+  padding: 40px;
+  padding-left: 150px;
+  padding-right: 150px;
+  border-radius: 50%;
+  transition: all 0.2s ease-in-out;
+}
+
+.user-name {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-weight: bold;
+  font-size: 25px;
+  background-color: tomato;
+  padding: 10px;
+  width: 250px;
+  height: 60px;
+  margin-top: 20px;
+  border-radius: 20px;
+}
+
+.submit-profile-pic {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  margin-top: 20px;
+  border-radius: 20px;
+  background-color: transparent;
+  border: 1px solid tomato;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+.submit-profile-pic:focus {
+  outline: none;
+}
+.submit-profile-pic:hover {
+  background-color: tomato;
+  color: white;
+}
+.reveal {
+  border: none;
+  background-color: tomato;
+  border-radius: 20px;
+  padding: 10px;
+  margin-top: 10px;
+  width: 170px;
+  height: 40px;
+  color: white;
+  transition: all 0.2s ease-in-out;
+}
+
+.reveal:hover {
+  width: 200px;
+  height: 50px;
+  background-color: white;
+  color: tomato;
+  font-weight: bolder;
+}
+
+.wrapper-input-file {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  font-weight: bolder;
+  font-size: 20px;
+  border: 1px solid tomato;
+  border-radius: 20px;
+  width: 100px;
+  height: 40px;
+  margin-top: 20px;
+  cursor: pointer;
+  overflow: hidden;
+  transition: all 0.2s ease-in-out;
+}
+
+.wrapper-input-file:hover {
+  background-color: tomato;
+  color: white;
+}
+
+.profile-image-input {
+  position: absolute;
+  display: flex;
+  text-align: center;
+  width: 100%;
+  height: 100%;
+  height: 40px;
+  z-index: 999;
+  opacity: 0;
+  transition: all 0.5s ease-in-out;
+}
+
+.input-upload-design {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}

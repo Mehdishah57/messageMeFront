@@ -1,0 +1,27 @@
+.my-message-item,
+.receiver-message-item {
+  display: block;
+  padding: 5px;
+  height: max-content;
+  overflow-wrap: break-word;
+  width: max-content;
+  max-width: 450px;
+  margin: 5px;
+  border-radius: 10px;
+}
+.receiverName {
+  font-weight: bolder;
+  color: crimson;
+  margin-left: 5px;
+}
+
+.receiver-message-item {
+  align-self: flex-end;
+}
+
+@media only screen and (max-width: 850px) {
+  .my-message-item,
+  .receiver-message-item{
+    max-width: 250px;
+  }
+}

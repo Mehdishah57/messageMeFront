@@ -1,0 +1,168 @@
+.main-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+  overflow: auto;
+}
+
+.left-panel-wrapper {
+  display: flex;
+  width: 20%;
+  height: 85%;
+  background-color: rgb(255, 255, 255);
+  overflow: auto;
+  flex-direction: column;
+  transition: all 0.3s ease-in-out;
+}
+
+.right-panel-wrapper {
+  display: flex;
+  width: 50%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding-bottom: 40px;
+}
+
+.left-panel-nav {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: max-content;
+  overflow: hidden;
+}
+
+.left-panel-chats,
+.left-panel-search {
+  display: flex;
+  height: 70px;
+  width: 50%;
+  background-color: rgb(255, 255, 255);
+  cursor: pointer;
+  transition: all 0.1s ease-in-out;
+  align-items: center;
+  border: none;
+  justify-content: center;
+  color: tomato;
+  font-weight: bolder;
+  font-size: 15px;
+}
+
+.left-panel-chats:hover,
+.left-panel-search:hover {
+  background-color: rgb(255, 99, 71);
+  color: white;
+}
+
+.left-panel-chats:focus,
+.left-panel-search:focus {
+  outline: none;
+}
+
+.left-panel-chats:active,
+.left-panel-search:active {
+  font-size: 10px;
+}
+
+.left-panel-chats:focus-within,
+.left-panel-search:focus-within {
+  border-bottom: 5px solid tomato;
+}
+
+.inner-wrapper {
+  position: relative;
+  display: flex;
+  height: 100%;
+  width: 100%;
+  overflow-x: hidden;
+  flex-direction: row;
+}
+
+.chats {
+  position: absolute;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  transition: all 0.4s ease-in-out;
+}
+
+.search {
+  position: absolute;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  transform: translate(500%);
+  transition: all 0.4s ease-in-out;
+}
+
+.message-input {
+  display: flex;
+  flex-direction: row;
+  height: auto;
+  width: 100%;
+}
+
+.custom {
+  align-self: center;
+  color: tomato;
+  cursor: pointer;
+  font-size: 30px;
+  font-weight: bolder;
+  width: 20px;
+  height: 20px;
+  transition: all 0.2s ease-in-out;
+}
+
+.custom:hover {
+  font-size: 20px;
+}
+
+.custom-field {
+  width: 75%;
+  margin-bottom: 0px;
+}
+
+.show-hide-chat-button {
+  border: none;
+  opacity: 0;
+  height: 0;
+  pointer-events: none;
+}
+
+@media only screen and (max-width: 850px) {
+  .main-wrapper {
+    flex-direction: column;
+  }
+  .left-panel-wrapper {
+    min-width: 300px;
+    height: 0%;
+  }
+  .show-hide-chat-button {
+    opacity: 1;
+    height: 50px;
+    width: 100px;
+    background-color: tomato;
+    color: white;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: bolder;
+    font-size: 18px;
+    pointer-events: all;
+    margin-top: 10px;
+    transition: all 0.2s ease-in-out;
+  }
+  .show-hide-chat-button:hover {
+    background-color: white;
+    color: tomato;
+    border: 2px solid tomato;
+  }
+  .right-panel-wrapper {
+    max-height: 550px;
+  }
+  .right-panel-wrapper{
+    width: 95%;
+  }
+}
