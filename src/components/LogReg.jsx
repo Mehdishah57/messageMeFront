@@ -4,6 +4,7 @@ import { useHistory } from "react-router";
 
 import "./LogReg.css";
 import { toast, ToastContainer } from "react-toastify";
+import Loader from "./Loader";
 
 export default function LogReg() {
   const [email, setEmail] = useState("");
@@ -62,6 +63,11 @@ export default function LogReg() {
     }
   }
 
+  if(loading) return (
+    <div style={{backgroundColor:'white'}} className="main-wrapper-login">
+      <Loader />
+    </div>
+  )
   return (
     <div className="main-wrapper-login">
       <ToastContainer />

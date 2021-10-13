@@ -28,7 +28,6 @@ const Messenger = ({email , chatList , activeConversationList}) => {
   }
 
   const handleSIClick = (item) => {
-    console.log(item)
     const conversation = {
       member_1: email,
       member_2: item.email,

@@ -11,86 +11,8 @@ a {
 .dashboard-wrapper {
   display: flex;
   flex-direction: column;
-  height: 100vh;
-  width: 100vw;
-  margin: 0 auto;
-  position: relative;
-  overflow-x: hidden;
-  overflow-y: auto;
-}
-
-.dashboard-nav {
-  position: relative;
-  display: flex;
-  flex-direction: row;
-  width: 100vw;
-  height: 50px;
-  background-color: tomato;
-}
-
-.nav-bar-btn {
-  border: none;
-  background-color: white;
-  color: tomato;
-  font-weight: bolder;
-  padding: 5px;
-  cursor: pointer;
-  transition: all 0.1s ease-in-out;
-}
-.nav-bar-btn:hover {
-  background-color: tomato;
-  color: white;
-}
-
-.dashboard-nav-ul {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-  list-style: none;
-  margin-left: 30px;
-}
-
-.dashboard-nav-li {
-  color: white;
-  font-weight: bold;
-  height: 100%;
-  margin-right: 30px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  transition: all 0.2s ease-in-out;
-}
-
-.dashboard-nav-ul-2 {
-  position: absolute;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-  list-style: none;
-  margin-left: 30px;
-  right: 10%;
-}
-
-.logout-btn {
-  border: none;
-  padding: 5px;
-  background-color: white;
-  color: black;
-  font-weight: bolder;
-  font-size: 14px;
-  border-radius: 10px;
-  transition: all 0.2s ease-in-out;
-}
-.logout-btn:hover {
-  background-color: red;
-  color: white;
-}
-.logout-btn:focus {
-  outline: none;
+  width: 100%;
+  overflow: hidden;
 }
 
 .profile,
@@ -102,19 +24,4 @@ a {
   display: flex;
   height: 100%;
   width: 100%;
-}
-
-.profile-slider {
-  position: absolute;
-  transform: translateX(-5000px);
-  top: 50px;
-  transition: all 0.8s ease-in-out;
-  overflow: auto;
-}
-
-.messenger-slider {
-  position: absolute;
-  top: 50px;
-  transition: all 0.8s ease-in-out;
-  overflow: auto;
 }

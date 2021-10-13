@@ -6,6 +6,7 @@ import MessageList from './MessageList';
 import socket from '../socketConfig';
 import { sendMessage } from './../services/sendMessage';
 import * as _ from 'lodash';
+import { TextField } from '@mui/material';
 
 const Message = ({ email ,item, conversation, exitMessage }) => {
   const [message, setMessage] = useState('');
@@ -36,7 +37,7 @@ const Message = ({ email ,item, conversation, exitMessage }) => {
       setMessageList(tempArr);
     })
 
-  const handleMessage = async (message) => {
+  const handleMessage = async () => {
     if(item.email === email) return;
     const thisMessage = {sender: email , text: message}
     if(!conversation._id){
@@ -51,6 +52,7 @@ const Message = ({ email ,item, conversation, exitMessage }) => {
     }
     socket.emit("message",{conversation,item,thisMessage})
     await sendMessage(messageList[0] , thisMessage);
+    setMessage("");
   }
   if(!item) return <EmptyMessageBox />
   return (
@@ -66,8 +68,8 @@ const Message = ({ email ,item, conversation, exitMessage }) => {
         <MessageList receiverName={item?.name} email={email} chats={messageList}/>
       </div>
       <div className="message-input">
-        <input placeholder="Send Message" className='signup-login-field custom-field' value={message} onChange={e => { setMessage(e.currentTarget.value) }} />
-        <i onClick={() => handleMessage(message)} style={{ fontSize: 20 }} className="fa fa-paper-plane-o custom" aria-hidden="true"></i>
+        <TextField sx={{width:"100%"}} autocomplete="false" id="outlined-basic" label="Message" variant="outlined" value={message} onChange={e => { setMessage(e.currentTarget.value) }} />
+        <i onClick={() => handleMessage()} style={{ fontSize: 20 }} className="fa fa-paper-plane-o custom" aria-hidden="true"></i>
       </div>
     </div>
   );

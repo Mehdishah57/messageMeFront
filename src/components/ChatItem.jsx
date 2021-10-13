@@ -11,8 +11,8 @@ const ChatItem = React.memo(({activeConversationList, chatList , handleChatClick
           (chat.member_1 === item.email || chat.member_2 === item.email) ? 
           <div  onClick={() => handleChatClick(item ,chat)} className="single-chat-item" key={item?._id}>
             <div className="chat-item-row">
-              <div  className="item-img">
-                {item && item.imageUri ? <img src={item.imageUri} alt="" /> : <img src={dummyImg} alt="" />}
+              <div style={{width:'40px',height:'40px',marginRight:'20px',borderRadius:'100vh',overflow:'hidden'}} className="item-img">
+                {item && item.imageUri ? <img width="100%" src={item.imageUri} alt="" /> : <img src={dummyImg} alt="" />}
               </div>
               <div className="item-name">
                 {item && item.name}

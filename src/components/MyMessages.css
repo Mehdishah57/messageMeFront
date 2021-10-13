@@ -1,0 +1,14 @@
+.my-messages-wrapper{
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  width: 70%;
+  max-width: 400px;
+  height: 100vh;
+  background-color: white;
+  box-shadow: 1px 1px 100px black;
+  transform: translateX(-100vh);
+  transition: all 0.3s ease-in-out;
+}
