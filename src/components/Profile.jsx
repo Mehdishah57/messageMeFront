@@ -1,10 +1,11 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useLayoutEffect } from "react";
 import jwtDecode from "jwt-decode";
 import updateImage from "./../services/updateImage";
 import "./Profile.css";
 import {
   Alert,
   AlertTitle,
+  Avatar,
   Button,
   Collapse,
   Dialog,
@@ -34,6 +35,10 @@ const Profile = (props) => {
   const [showPrivacyChangeAlert, setShowPrivacyChangeAlert] = useState(false);
   const selectedImage = useRef(null);
 
+  useLayoutEffect(()=>{
+    if(props.userStatus) setChecked(!props.userStatus);
+  },[props.userStatus]);
+
   const handleSubmit = async (e) => {
     setLoading(true);
     e.preventDefault();
@@ -51,6 +56,7 @@ const Profile = (props) => {
       setLoading(false);
     }, 5000);
   };
+  
   const handleImgChange = async (e) => {
     selectedImage.current = e.currentTarget.files[0];
     setDispImg(URL.createObjectURL(e.currentTarget.files[0]));
@@ -60,7 +66,7 @@ const Profile = (props) => {
 
   const changeAccountPrivacy = async(e) => {
     setChecked(e.currentTarget.checked);
-    const { error } = await changeMyPrivacy(!checked);
+    const { error } = await changeMyPrivacy(e.currentTarget.checked);
     if(error) {
       setShowPrivacyChangeError(true);
       setTimeout(() => {
@@ -100,11 +106,7 @@ const Profile = (props) => {
     <div onClick={props.onClick} className="profile-wrapper">
       <form onSubmit={handleSubmit}>
         <div className="image-wrapper">
-          {props.image ? (
-            <img width="100%" src={props.image} alt="" />
-          ) : (
-            <img width="100%"  src={dispImg} alt="" />
-          )}
+          <Avatar src={dispImg || props.image} sx={{ width:'100%',height:'100%', fontSize:'80px', backgroundColor:'dodgerblue' }}>{!props.image && props.username[0]}</Avatar>
         </div>
         <Button sx={{ marginTop: "10px" }} variant="outlined">
           Select an Image

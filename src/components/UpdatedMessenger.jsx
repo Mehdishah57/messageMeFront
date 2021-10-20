@@ -1,13 +1,15 @@
 import React, { useState, useRef, useEffect } from "react";
 import "./UpdatedMessenger.css";
-import { Button, TextField } from "@mui/material";
+import { Button, Fab, TextField } from "@mui/material";
 import { fetchUserMessage } from './../services/fetchUserMessage';
 import socket from "./../socketConfig";
 import { sendMessage } from './../services/sendMessage';
 import * as _ from 'lodash';
+import MenuIcon from '@mui/icons-material/Menu';
+import MailIcon from '@mui/icons-material/Mail';
+import BackspaceIcon from '@mui/icons-material/Backspace';
 
-
-const UpdatedMessenger = React.memo(({ chat:item,conversation, onClick ,email}) => {
+const UpdatedMessenger = React.memo(({ closeMessageBox, chat:item,conversation, onClick ,email}) => {
   const [message, setMessage] = useState("");
   const [messageList , setMessageList] = useState([{messages:[]}]);
   const [MessageLength , setMessageLength] = useState(10);
@@ -32,6 +34,10 @@ const UpdatedMessenger = React.memo(({ chat:item,conversation, onClick ,email}) 
   },[item,conversation,MessageLength]);
 
   useEffect(()=>{
+    if(conversation && !conversation._id){}
+  },[item,conversation])
+
+  useEffect(()=>{
     setMessageLength(10);
   },[item]);
 
@@ -52,6 +58,7 @@ const UpdatedMessenger = React.memo(({ chat:item,conversation, onClick ,email}) 
 
   const handleMessage = async () => {
     if(item.email === email) return;
+    if(!message) return;
     const thisMessage = {sender: email , text: message}
     if(!conversation._id){
       let conversation = {
@@ -68,8 +75,33 @@ const UpdatedMessenger = React.memo(({ chat:item,conversation, onClick ,email}) 
     setMessage("");
   }
 
+  const handleCloseIconDrag = e => {
+    let initialHorizontalPosition = e.clientX;
+    let initialVerticalPosition = e.clientY;
+
+    if(initialHorizontalPosition < initialHorizontalPosition + e.clientX){
+      e.currentTarget.style.left = e.clientX + "px";
+    }
+    if(initialHorizontalPosition > initialHorizontalPosition + e.clientX){
+      e.currentTarget.style.right = e.clientX + "px";
+    }
+    if(initialVerticalPosition < initialVerticalPosition + e.clientY){
+      e.currentTarget.style.top = e.clientY + "px";
+    }
+    if(initialVerticalPosition > initialVerticalPosition + e.clientY){
+      e.currentTarget.style.bottom = e.clientY + "px";
+    }
+      
+  }
+    
+
+  if(!item.email || !conversation.member_1) return <div onClick={onClick} style={{fontSize:'20px',display:'flex',justifyContent:'center',alignItems:'center',width:"100%",height:'70vh'}} className="updated-messenger-wrapper">
+    <div style={{display:'flex',alignItems:'center',justifyContent:'space-evenly',width:'280px'}}>
+      <MenuIcon sx={{color:'dodgerblue',fontWeight:'bolder',fontSize:'35px'}}/> or <MailIcon sx={{color:'dodgerblue',fontWeight:'bolder',fontSize:'35px'}}/> to view messages
+    </div>
+  </div>
   return (
-    <div onClick={onClick} className="updated-messenger-wrapper">
+    <div style={{position:'relative'}} onClick={onClick} className="updated-messenger-wrapper">
       <div ref={divRef} style={{display:'flex',height:'80vh',flexDirection:'column',alignItems:'stretch',width:'100%',overflowX:'hidden',overflowY:'scroll'}} className="new-message-wrapper">
         {
           messageList.length &&  messageList[0].messages.map( message => <TextBox message={message} /> )
@@ -83,8 +115,11 @@ const UpdatedMessenger = React.memo(({ chat:item,conversation, onClick ,email}) 
         value={message}
         onChange={(e) => setMessage(e.currentTarget.value)}
       />
-        <Button onClick={handleMessage} sx={{position:'absolute',right:'0px',height:'100%'}}>Send</Button>
+        <Button variant="contained" onClick={handleMessage} sx={{position:'absolute',right:'0px',height:'100%'}}>Send</Button>
       </div>
+      <Fab draggable onTouchStart={handleCloseIconDrag} onClick={closeMessageBox} sx={{position:'absolute', backgroundColor:'red'}} onDrag={handleCloseIconDrag} variant="extended" size="medium" color="primary" aria-label="add">
+        <BackspaceIcon sx={{position:'absolute'}} />
+      </Fab>
     </div>
   );
 });

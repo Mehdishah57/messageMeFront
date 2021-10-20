@@ -4,7 +4,8 @@
   align-items: center;
   justify-content: center;
   height: 720px;
-  width: 100vw;
+  width: 100%;
+  overflow-x: hidden;
   overflow-y: auto;
 }
 

@@ -1,22 +1,25 @@
-import * as React from 'react';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import Badge from '@mui/material/Badge';
-import MenuItem from '@mui/material/MenuItem';
-import Menu from '@mui/material/Menu';
-import MenuIcon from '@mui/icons-material/Menu';
-import AccountCircle from '@mui/icons-material/AccountCircle';
-import MailIcon from '@mui/icons-material/Mail';
-import { useHistory } from 'react-router-dom';
+import * as React from "react";
+import AppBar from "@mui/material/AppBar";
+import Box from "@mui/material/Box";
+import Toolbar from "@mui/material/Toolbar";
+import IconButton from "@mui/material/IconButton";
+import Typography from "@mui/material/Typography";
+import Badge from "@mui/material/Badge";
+import MenuItem from "@mui/material/MenuItem";
+import Menu from "@mui/material/Menu";
+import MenuIcon from "@mui/icons-material/Menu";
+import MailIcon from "@mui/icons-material/Mail";
+import { useHistory } from "react-router-dom";
+import { Avatar } from "@mui/material";
+import LogoutIcon from "@mui/icons-material/Logout";
+import { Button } from "@mui/material";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import SupervisorAccountIcon from '@mui/icons-material/SupervisorAccount';
 
-
-export default function PrimarySearchAppBar({user, showDrawer}) {
+export default function PrimarySearchAppBar({ user, showDrawer }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
 
-  const history =  useHistory();
+  const history = useHistory();
 
   const isMenuOpen = Boolean(anchorEl);
 
@@ -27,25 +30,39 @@ export default function PrimarySearchAppBar({user, showDrawer}) {
     setAnchorEl(null);
   };
 
-  const menuId = 'primary-search-account-menu';
+  const handleLogout = () => {
+    localStorage.removeItem("JWT_messageME");
+    history.replace("/login");
+  };
+
+  const menuId = "primary-search-account-menu";
   const renderMenu = (
     <Menu
       anchorEl={anchorEl}
       anchorOrigin={{
-        vertical: 'top',
-        horizontal: 'right',
+        vertical: "top",
+        horizontal: "right",
       }}
       id={menuId}
       keepMounted
       transformOrigin={{
-        vertical: 'top',
-        horizontal: 'right',
+        vertical: "top",
+        horizontal: "right",
       }}
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={()=>{handleMenuClose();history.push("/dashboard/profile")}}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>Logout</MenuItem>
+      <MenuItem
+        onClick={() => {
+          handleMenuClose();
+          history.push("/dashboard/profile");
+        }}
+      >
+        <Button endIcon={<AccountCircleIcon />}>Profile</Button>
+      </MenuItem>
+      <MenuItem onClick={handleLogout}>
+        <Button endIcon={<LogoutIcon />}>Logout</Button>
+      </MenuItem>
     </Menu>
   );
 
@@ -67,13 +84,30 @@ export default function PrimarySearchAppBar({user, showDrawer}) {
             variant="h6"
             noWrap
             component="div"
-            sx={{ display: { xs: 'none', sm: 'block' } }}
+            sx={{ display: { xs: "none", sm: "block" } }}
           >
             {user.name}
           </Typography>
           <Box sx={{ flexGrow: 1 }} />
-          <Box  sx={{ display: { xs: 'flex', md: 'flex' } }}>
-            <IconButton onClick={()=>{history.push("/dashboard/messages");showDrawer()}} size="large" aria-label="show 4 new mails" color="inherit">
+          <Box sx={{ display: { xs: "flex", md: "flex" } }}>
+            <IconButton
+              onClick={() => {
+                history.push("/dashboard/search");
+              }}
+              size="large"
+              color="inherit"
+            >
+              <SupervisorAccountIcon />
+            </IconButton>
+            <IconButton
+              onClick={() => {
+                history.push("/dashboard/messages");
+                showDrawer();
+              }}
+              size="large"
+              aria-label="show 4 new mails"
+              color="inherit"
+            >
               <Badge badgeContent={4} color="error">
                 <MailIcon />
               </Badge>
@@ -87,7 +121,7 @@ export default function PrimarySearchAppBar({user, showDrawer}) {
               onClick={handleProfileMenuOpen}
               color="inherit"
             >
-              <AccountCircle />
+              <Avatar sx={{ bgcolor: "dodgerblue" }}>{user.name[0]}</Avatar>
             </IconButton>
           </Box>
         </Toolbar>

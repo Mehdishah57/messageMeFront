@@ -5,11 +5,12 @@ import Profile from "./Profile";
 import socket from "./../socketConfig";
 import fetchUserChats from "./../services/fetchUserChats";
 import fetchUserData from "../services/fetchUser";
-import Loader from "./Loader";
 import PrimarySearchAppBar from "./NavTest";
 import MyMessages from "./MyMessages";
 import UpdatedMessenger from "./UpdatedMessenger";
-import { Route } from "react-router-dom";
+import { Route, useHistory } from "react-router-dom";
+import SearchUsers from './SearchUsers';
+import { CircularProgress } from "@mui/material";
 
 const Dashboard = () => {
   const [image, setImage] = useState("");
@@ -24,6 +25,8 @@ const Dashboard = () => {
   const profileRef = useRef(null);
   const messengerRef = useRef(null);
   const myMessagesRef = useRef();
+
+  const history = useHistory();
 
   fetchUser.current = async () => {
     setLoading(true);
@@ -47,7 +50,7 @@ const Dashboard = () => {
     if (!current_user || !current_user._id) return;
     fetchUser.current();
     fetchChats.current();
-    socket.on("logger", (msg) => {
+    socket.off("logger").on("logger", (msg) => {
       console.log(msg);
     });
   }, [current_user]);
@@ -60,7 +63,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     if (!current_user || !current_user._id) return;
-    socket.off("User").emit("User", current_user);
+      socket.off("User").emit("User", current_user);
   }, [current_user]);
 
   useEffect(() => {
@@ -109,9 +112,27 @@ const Dashboard = () => {
     setConversation(conversation)
   };
 
+  const closeMessageBox = () => {
+    setChat({});
+    setConversation({});
+  }
+
+  const handleSIClick = (item) => {
+    const conversation = {
+      member_1: current_user.email,
+      member_2: item.email,
+      message: []
+    }
+    socket.emit("joinRoom", item._id);
+    setChat(item);
+    setConversation(conversation);
+  }
+
   if (!localStorage.getItem("JWT_messageME"))
-    return (window.location = "/login");
-  if (!current_user._id) return <Loader />;
+    history.push("/login");
+    if(!current_user._id) return <div className="dashboard-wrapper">
+      <CircularProgress />
+    </div>;
   return (
     <div className="dashboard-wrapper">
       <PrimarySearchAppBar
@@ -128,6 +149,7 @@ const Dashboard = () => {
             image={image}
             setImage={setImage}
             username={current_user.name}
+            userStatus={current_user.private}
             updateName={handleNameUpdate}
           />
         )}
@@ -140,6 +162,17 @@ const Dashboard = () => {
             conversation={conversation}
             chat={chat}
             email={current_user.email}
+            closeMessageBox={closeMessageBox}
+          />
+        )}
+      />
+      <Route 
+        path="/dashboard/search"
+        component={()=>(
+          <SearchUsers 
+          onClick={handleMenuClose}
+          handleSIClick={handleSIClick}
+          current_user={current_user}
           />
         )}
       />

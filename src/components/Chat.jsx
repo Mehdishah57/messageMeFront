@@ -1,12 +1,11 @@
 import React , {memo} from 'react';
 import './Chat.css';
 import ChatItem from './ChatItem';
-import Loader from './Loader';
 
 const Chat = memo(({loading,handleChatClick, chatList , activeConversationList}) => {
   if(loading) return (
       <div className="chat-wrapper">
-        <Loader />
+        kuttyo
       </div>
     )
   return (
