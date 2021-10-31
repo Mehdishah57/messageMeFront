@@ -93,6 +93,25 @@ const UpdatedMessenger = React.memo(({ closeMessageBox, chat:item,conversation, 
     }
       
   }
+
+  const handleTouchMove = (e) => {
+    
+    let initialHorizontalPosition = e.touches[0].pageX;
+    let initialVerticalPosition = e.touches[0].pageY;
+
+    if(initialHorizontalPosition < initialHorizontalPosition +e.touches[0].pageX){
+      e.currentTarget.style.left = e.touches[0].pageX + "px";
+    }
+    if(initialHorizontalPosition > initialHorizontalPosition + e.touches[0].pageX){
+      e.currentTarget.style.right = e.touches[0].pageX + "px";
+    }
+    if(initialVerticalPosition < initialVerticalPosition + e.touches[0].pageY){
+      e.currentTarget.style.top = e.touches[0].pageY + "px";
+    }
+    if(initialVerticalPosition > initialVerticalPosition + e.touches[0].pageY){
+      e.currentTarget.style.bottom = e.touches[0].pageY + "px";
+    }
+  }
     
 
   if(!item.email || !conversation.member_1) return <div onClick={onClick} style={{fontSize:'20px',display:'flex',justifyContent:'center',alignItems:'center',width:"100%",height:'70vh'}} className="updated-messenger-wrapper">
@@ -117,7 +136,7 @@ const UpdatedMessenger = React.memo(({ closeMessageBox, chat:item,conversation, 
       />
         <Button variant="contained" onClick={handleMessage} sx={{position:'absolute',right:'0px',height:'100%'}}>Send</Button>
       </div>
-      <Fab draggable onTouchStart={handleCloseIconDrag} onClick={closeMessageBox} sx={{position:'absolute', backgroundColor:'red'}} onDrag={handleCloseIconDrag} variant="extended" size="medium" color="primary" aria-label="add">
+      <Fab onTouchMove={handleTouchMove} draggable onTouchStart={handleCloseIconDrag} onClick={closeMessageBox} sx={{position:'absolute', backgroundColor:'red'}} onDrag={handleCloseIconDrag} variant="extended" size="medium" color="primary" aria-label="add">
         <BackspaceIcon sx={{position:'absolute'}} />
       </Fab>
     </div>

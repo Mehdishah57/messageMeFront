@@ -14,6 +14,7 @@ import { CircularProgress } from "@mui/material";
 
 const Dashboard = () => {
   const [image, setImage] = useState("");
+  const [online, setOnline] = useState(false);
   const [current_user, setCurrentUser] = useState({});
   const [chatList, setChatList] = useState([]);
   const [chat, setChat] = useState({});
@@ -53,6 +54,12 @@ const Dashboard = () => {
     socket.off("logger").on("logger", (msg) => {
       console.log(msg);
     });
+    socket.off("online").on("online" ,()=>{
+      setOnline(true);
+    })
+    socket.off("offline").on("offline",()=>{
+      setOnline(false);
+    })
   }, [current_user]);
 
   useEffect(() => {
@@ -72,6 +79,14 @@ const Dashboard = () => {
         socket.emit("join-chat-emails", chat._id);
         return null;
       });
+    }
+    return () => {
+      if(chatList.length > 0){
+        chatList.map((chat) => {
+          socket.emit("user-disconnect", chat._id);
+          return null;
+        });
+      }
     }
   }, [chatList]);
 
@@ -182,6 +197,7 @@ const Dashboard = () => {
         activeConversationList={activeConversationList}
         handleChatClick={handleChatClick}
         ref={myMessagesRef}
+        online={online}
       />
     </div>
   );

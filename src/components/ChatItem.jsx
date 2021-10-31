@@ -2,7 +2,7 @@ import React from 'react';
 import dummyImg from '../assets/dummyUser.png';
 
 import './ChatItem.css';
-const ChatItem = React.memo(({activeConversationList, chatList , handleChatClick }) => {
+const ChatItem = React.memo(({activeConversationList, chatList , handleChatClick, online }) => {
   return (
     <div className="chat-item-wrapper">
       {
@@ -19,6 +19,7 @@ const ChatItem = React.memo(({activeConversationList, chatList , handleChatClick
               </div>
             </div>
             <div className="chat-item-latest-message"><span className="message-highlight">Message: </span>{chat?.member_1===item.email || chat?.member_2 === item.email ? chat.messages.text : null}</div>
+            <div className={online? "online": "offline"}>{online? "Online": "Offline"}</div>
           </div>
           : null
         ))

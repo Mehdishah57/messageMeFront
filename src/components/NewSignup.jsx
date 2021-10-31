@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useLayoutEffect } from 'react';
 import { TextField } from '@mui/material';
 import { Collapse } from '@mui/material';
 import { Alert } from '@mui/material';
@@ -6,7 +6,6 @@ import { LoadingButton } from '@mui/lab';
 import { Button } from '@mui/material';
 import { useHistory } from "react-router-dom";
 import { signup } from '../services/login';
-import { HailTwoTone } from '@mui/icons-material';
 
 const NewSignup = () => {
   const [state, setState] = useState({name:"",email:"",password:""})
@@ -14,6 +13,11 @@ const NewSignup = () => {
   const [loading , setLoading] = useState(false)
 
   const history = useHistory();
+
+  useLayoutEffect(()=>{
+    const token = localStorage.getItem('JWT_messageME');
+    if(token) history.replace("/dashboard/profile");
+  },[history]) 
 
   const handleChange = (e) => {
     setState({...state,[e.currentTarget.name]:e.currentTarget.value});

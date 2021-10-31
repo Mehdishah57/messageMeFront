@@ -49,3 +49,17 @@
   height: 22px;
   overflow: hidden;
 }
+
+.online {
+  color: rgb(55, 155, 55);
+  transition: all 0.2s ease-in-out;
+}
+.online:hover {
+  color: green;
+}
+.offline{
+  color: crimson;transition: all 0.2s ease-in-out;
+}
+.offline:hover {
+  color: rgb(139, 42, 61);
+}

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useLayoutEffect } from "react";
 import login from "../services/login";
 import { useHistory } from "react-router-dom";
 import { Alert, Button, Collapse, TextField } from "@mui/material";
@@ -10,6 +10,11 @@ const NewLogin = () => {
   const [loading , setLoading] = useState(false)
 
   const history = useHistory();
+
+  useLayoutEffect(()=>{
+    const token = localStorage.getItem('JWT_messageME');
+    if(token) history.replace("/dashboard/profile");
+  },[history]) 
 
   const handleChange = (e) => {
     setState({...state,[e.currentTarget.name]:e.currentTarget.value});
